@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-Pokedex Plus/Pods-Pokedex Plus-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework
+${BUILT_PRODUCTS_DIR}/URLImage/URLImage.framework

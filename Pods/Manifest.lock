@@ -1,0 +1,26 @@
+PODS:
+  - Alamofire (5.1.0)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
+  - URLImage (0.9.15)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.1)
+  - SQLite.swift (~> 0.12.0)
+  - URLImage
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - SQLite.swift
+    - URLImage
+
+SPEC CHECKSUMS:
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  URLImage: 1adef9b81f071fc2fc13a1a87ff882c0a694d48b
+
+PODFILE CHECKSUM: 8094e0d6d0fd12892a13f5a66d9e20738ae4b1d4
+
+COCOAPODS: 1.9.1
