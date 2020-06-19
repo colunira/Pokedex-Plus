@@ -19,23 +19,30 @@ struct PokemonRow: View {
             })
             
             VStack(alignment: .leading) {
-                Text(pokemon.name.capitalized)
+                HStack {
+                    Text(pokemon.name.capitalized)
                     .font(.title)
+                    Spacer()
+                    if (pokemon.isFavourite ?? false) {
+                        Image("star").resizable()
+                            .frame(width: 25, height: 25)
+                        .shadow(radius: 1)
+                    }
+                }
+                
                 HStack {
                     Text(pokemon.types[0].type.name.capitalized)
+                    .foregroundColor(Color(pokemon.types[0].type.name))
                     if (pokemon.types.capacity > 1){
                         Spacer()
                         Text(pokemon.types[1].type.name.capitalized)
+                            .foregroundColor(Color(pokemon.types[1].type.name))
                     }
                     
                 }
             }
             .padding()
-            Spacer()
-            if (pokemon.isFavourite ?? false) {
-                Image("star").resizable()
-                    .frame(width: 30, height: 30)
-            }
+            
             
             
         }

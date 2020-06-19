@@ -18,6 +18,24 @@ final class ViewModel: ObservableObject {
     private var baseURL = "https://pokeapi.co/api/v2/"
     private let session = URLSession.shared
     
+    func getFavourites() {
+        do {
+            let dir = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            let fileUrl = dir.appendingPathComponent("pokemons").appendingPathExtension("sqlite3")
+            let db = try Connection(fileUrl.path)
+            let poketable = Table("pokemons")
+            let id_e = Expression<Int>("id")
+            let dbaccess = DBAccess(db: db, table: poketable, expression: id_e)
+            let favs = dbaccess.getAllPokemons()
+            for id in favs {
+                getPokemonByName(name: id.description)
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
     func getGenerationByID(id: Int) {
         let url = URL(string: baseURL + "generation/" + id.description)!
         let task = session.dataTask(with: url) { data, response, error in
@@ -51,15 +69,18 @@ final class ViewModel: ObservableObject {
     
     func getPokemonByName(name: String) {
         let url = URL(string: baseURL + "pokemon/" + name)!
-        let task = session.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, res, error in
             
             if error != nil || data == nil {
                 print("Client error!")
                 return
             }
             
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            guard let response = res as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")
+                let aaa = res as? HTTPURLResponse
+                print(name)
+                print(aaa?.statusCode.description)
                 return
             }
             

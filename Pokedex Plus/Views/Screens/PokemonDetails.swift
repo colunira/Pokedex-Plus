@@ -11,14 +11,22 @@ import URLImage
 
 struct PokemonDetails: View {
     @EnvironmentObject var viewModel: ViewModel
-    var pokemon: Pokemon
+    @State var pokemon: Pokemon
+    @State var showAbilities: Bool = true
+    @State var showMoves: Bool = false
+    
+    let places = [
+        Place(id: 0, name: "Place #0"),
+        Place(id: 1, name: "Place #1"),
+        Place(id: 2, name: "Place #2")
+    ]
+    
     var colors: [Color] {
         if (pokemon.types.capacity > 1){
             return [Color(pokemon.types[0].type.name), Color(pokemon.types[1].type.name)]
         } else {
             return [Color(pokemon.types[0].type.name), Color.white]
         }
-        
     }
     
     var body: some View {
@@ -30,11 +38,14 @@ struct PokemonDetails: View {
                         Button(action: {
                             if (self.pokemon.isFavourite!) {
                                 self.viewModel.undoPokemonFavourite(id: self.pokemon.id)
+                                self.pokemon.isFavourite = false
                             } else {
                                 self.viewModel.doPokemonFavourite(id: self.pokemon.id)
+                                self.pokemon.isFavourite = true
                             }
+                            
                         }) {
-                            if pokemon.isFavourite ?? false {
+                            if self.pokemon.isFavourite! {
                                 Image("star")
                                     .resizable()
                                     .frame(width: 40, height: 40)
@@ -68,36 +79,98 @@ struct PokemonDetails: View {
                         .padding(.bottom, -200)
                 })
                 
+                // Pokemon name & type
                 VStack(alignment: .center) {
                     Text(pokemon.name.capitalized)
                         .font(.title)
                     HStack {
-                        Text(self.pokemon.types[0].type.name)
-                            .font(.subheadline)
+                        Text(self.pokemon.types[0].type.name.capitalized)
+                            .foregroundColor(Color(pokemon.types[0].type.name))
+                            .font(.headline)
                         if (self.pokemon.types.capacity > 1){
-                            Text(self.pokemon.types[1].type.name)
-                                .font(.subheadline)
+                            Text(self.pokemon.types[1].type.name.capitalized)
+                                .font(.headline)
+                                .foregroundColor(Color(pokemon.types[1].type.name))
                         }
                     }
                     .padding()
                 }
                 .padding()
+                
+                // Stats icons
                 HStack {
                     IconImage(image: "heart (2)")
-                    Text(pokemon.stats[Pokemon.HP].baseStat.description).font(.caption)
+                    Text(pokemon.stats[Pokemon.HP].baseStat.description).font(.subheadline)
                     IconImage(image: "sword (1)")
-                    Text(pokemon.stats[Pokemon.ATTACK].baseStat.description).font(.caption)
+                    Text(pokemon.stats[Pokemon.ATTACK].baseStat.description).font(.subheadline)
                     IconImage(image: "shield")
-                    Text(pokemon.stats[Pokemon.DEFENSE].baseStat.description).font(.caption)
+                    Text(pokemon.stats[Pokemon.DEFENSE].baseStat.description).font(.subheadline)
                     IconImage(image: "speed (1)")
-                    Text(pokemon.stats[Pokemon.SPEED].baseStat.description).font(.caption)
+                    Text(pokemon.stats[Pokemon.SPEED].baseStat.description).font(.subheadline)
                 }
+                
+                // Abilities and Moves
+                
+                HStack {
+
+                    Button(action: {
+                        self.showAbilities.toggle()
+                        self.showMoves.toggle()
+                    }){
+                        HStack {
+                            Text("Abilities").font(.headline)
+                            Spacer()
+                        }
+                    }.buttonStyle(GradientButtonStyle(isActive: showAbilities, color: pokemon.types[0].type.name))
+                        
+                    
+                    Button(action: {
+                        self.showAbilities.toggle()
+                        self.showMoves.toggle()
+                    }) {
+                        HStack {
+                            Text("Moves").font(.headline)
+                            Spacer()
+                        }
+                    }.buttonStyle(GradientButtonStyle(isActive: showMoves, color: pokemon.types[0].type.name))
+                    
+                } .padding(.top)
+                
+                
+                if (self.showAbilities) {
+                    List(pokemon.abilities, id: \.ability.name) { item in
+                        Text(item.ability.name.capitalized.replacingOccurrences(of: "-", with: " "))
+                    }.frame(height: 200)
+                }
+                
+                
+                if (self.showMoves) {
+                    List(pokemon.moves, id: \.move.name) { item in
+                        Text(item.move.name.capitalized.replacingOccurrences(of: "-", with: " "))
+                            .animation(Animation.easeInOut(duration: 3).delay(1))
+                    }
+                    .frame(height: 200)
+                }
+                
                 Spacer()
                     .navigationBarTitle(Text(pokemon.name.uppercased()), displayMode: .inline)
             }
             
         }
-        //.navigationBarHidden(true)
+    }
+}
+
+struct GradientButtonStyle: ButtonStyle {
+    var isActive: Bool
+    var color: String
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(Color.white)
+            .padding()
+            .shadow(radius: isActive ? 2 : 0)
+            .background(isActive ? Color(color) : Color("lightgray"))
+        
+        
     }
 }
 

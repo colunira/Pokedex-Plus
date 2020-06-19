@@ -11,5 +11,4 @@ import Combine
 
 final class UserData: ObservableObject  {
     @Published var showFavouritesOnly = false
-    @Published var pokemons: [Pokemon] = Service.getGenerationByNumber(gen: "1")
 }

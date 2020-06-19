@@ -52,4 +52,16 @@ class DBAccess: ObservableObject {
         }
     }
     
+    func getAllPokemons() -> [Int] {
+        var ids = [Int]()
+        do {
+            for pokeId in try db.prepare(self.table) {
+                ids.append(pokeId[id])
+            }
+        } catch {
+            print(error)
+        }
+        return ids
+    }
+    
 }

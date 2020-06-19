@@ -17,7 +17,6 @@ struct CategoryHome: View {
         MenuItem(id: 5, name: "Unova", color: "lightblue", image: "unova"),
         MenuItem(id: 6, name: "Kalos", color: "lightblue", image: "kalos"),
     ]
-    var service = Service()
     
     var body: some View {
         NavigationView {
@@ -27,12 +26,15 @@ struct CategoryHome: View {
                         .font(.headline)
                         .padding(.leading, 15)
                         .padding(.top, 5)
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
+                            
                             NavigationLink(destination: PokemonList(genId: 0)) {
                                 RoundedImageWithText(image: Image("favs"), text: "Favs", color: Color.white)
                             }
                             .buttonStyle(PlainButtonStyle())
+                            
                             NavigationLink(destination: Camera()) {
                                 RoundedImageWithText(image: Image("photo"), text: "Photo", color: Color.white)
                             }
@@ -44,6 +46,7 @@ struct CategoryHome: View {
                         .font(.headline)
                         .padding(.leading, 15)
                         .padding(.top, 5)
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(items) { item in

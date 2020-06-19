@@ -9,6 +9,5 @@
 import Foundation
 class Simplemon: Decodable {
     var name: String
-    
     public var description: String { return "\(name)"}
 }
