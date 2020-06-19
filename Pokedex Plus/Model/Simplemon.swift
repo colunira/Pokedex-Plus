@@ -9,5 +9,8 @@
 import Foundation
 class Simplemon: Decodable {
     var name: String
-    public var description: String { return "\(name)"}
+    var url: String
+    public var description: String {
+        return url.replacingOccurrences(of: "https://pokeapi.co/api/v2/pokemon-species/", with: "").replacingOccurrences(of: "/", with: "")
+    }
 }

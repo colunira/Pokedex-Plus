@@ -11,6 +11,7 @@ import SwiftUI
 struct PokemonList: View {
     @EnvironmentObject var viewModel: ViewModel
     var genId: Int
+    var genName: String
     
     
     var body: some View {
@@ -31,7 +32,7 @@ struct PokemonList: View {
             }
             .onAppear(perform: loadData)
     .onDisappear(perform: cleanData)
-            .navigationBarTitle(Text("Pokémons"), displayMode: .inline)
+            .navigationBarTitle(Text(self.genName), displayMode: .inline)
         
     }
     
@@ -50,10 +51,9 @@ struct PokemonList: View {
 
 
 
-/*struct PokemonList_Previews: PreviewProvider {
+struct PokemonList_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonList(pokemons: Pokemon.getExamplePokemons())
-        .environmentObject(UserData())
-        
+        PokemonList(genId: 1, genName: "TestGen")
+        .environmentObject(ViewModel())
     }
-}*/
+}

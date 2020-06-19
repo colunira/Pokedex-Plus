@@ -14,13 +14,7 @@ struct PokemonDetails: View {
     @State var pokemon: Pokemon
     @State var showAbilities: Bool = true
     @State var showMoves: Bool = false
-    
-    let places = [
-        Place(id: 0, name: "Place #0"),
-        Place(id: 1, name: "Place #1"),
-        Place(id: 2, name: "Place #2")
-    ]
-    
+        
     var colors: [Color] {
         if (pokemon.types.capacity > 1){
             return [Color(pokemon.types[0].type.name), Color(pokemon.types[1].type.name)]
@@ -81,7 +75,7 @@ struct PokemonDetails: View {
                 
                 // Pokemon name & type
                 VStack(alignment: .center) {
-                    Text(pokemon.name.capitalized)
+                    Text(pokemon.name.capitalized.replacingOccurrences(of: "-", with: " "))
                         .font(.title)
                     HStack {
                         Text(self.pokemon.types[0].type.name.capitalized)
@@ -153,7 +147,7 @@ struct PokemonDetails: View {
                 }
                 
                 Spacer()
-                    .navigationBarTitle(Text(pokemon.name.uppercased()), displayMode: .inline)
+                    .navigationBarTitle(Text(pokemon.name.capitalized), displayMode: .inline)
             }
             
         }

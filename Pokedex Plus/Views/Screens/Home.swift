@@ -30,7 +30,7 @@ struct CategoryHome: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             
-                            NavigationLink(destination: PokemonList(genId: 0)) {
+                            NavigationLink(destination: PokemonList(genId: 0, genName: "Favs")) {
                                 RoundedImageWithText(image: Image("favs"), text: "Favs", color: Color.white)
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -50,7 +50,7 @@ struct CategoryHome: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(items) { item in
-                                NavigationLink(destination: PokemonList(genId: item.id)) {
+                                NavigationLink(destination: PokemonList(genId: item.id, genName: item.name)) {
                                     RoundedImageWithText(image: Image(item.image), text: item.name, color: Color(item.color))
                                 }
                                 .buttonStyle(PlainButtonStyle())

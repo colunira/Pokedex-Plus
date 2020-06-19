@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2702E339249BE5150043EA78 /* TestPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702E338249BE5150043EA78 /* TestPokemon.swift */; };
 		27051AEA2480FD35005A0F93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27051AE92480FD35005A0F93 /* AppDelegate.swift */; };
 		27051AEC2480FD35005A0F93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27051AEB2480FD35005A0F93 /* SceneDelegate.swift */; };
 		27051AEE2480FD35005A0F93 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27051AED2480FD35005A0F93 /* ContentView.swift */; };
@@ -33,7 +32,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2702E338249BE5150043EA78 /* TestPokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPokemon.swift; sourceTree = "<group>"; };
 		27051AE62480FD35005A0F93 /* Pokedex Plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pokedex Plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27051AE92480FD35005A0F93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27051AEB2480FD35005A0F93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 				27051B05248111D4005A0F93 /* Pokemon.swift */,
 				274C9F882497D9E2006FC4E5 /* Generation.swift */,
 				274C9F8A2497EE84006FC4E5 /* Simplemon.swift */,
-				2702E338249BE5150043EA78 /* TestPokemon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -319,7 +316,6 @@
 				270CAAD42489567F00FC4556 /* MenuItem.swift in Sources */,
 				27051B01248103E0005A0F93 /* PokemonDetails.swift in Sources */,
 				27051AEC2480FD35005A0F93 /* SceneDelegate.swift in Sources */,
-				2702E339249BE5150043EA78 /* TestPokemon.swift in Sources */,
 				27051B0A24811747005A0F93 /* PokemonList.swift in Sources */,
 				27051B1024813539005A0F93 /* RoundedImageWithText.swift in Sources */,
 				27051AEE2480FD35005A0F93 /* ContentView.swift in Sources */,

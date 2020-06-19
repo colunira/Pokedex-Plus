@@ -53,7 +53,7 @@ final class ViewModel: ObservableObject {
             do {
                 let generation = try JSONDecoder().decode(Generation.self, from: data!)
                 generation.pokemons.forEach{ poke in
-                    self.getPokemonByName(name: poke.name)
+                    self.getPokemonByName(name: poke.description)
                 }
                 DispatchQueue.main.async {
                     // update our UI

@@ -20,7 +20,7 @@ struct PokemonRow: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Text(pokemon.name.capitalized)
+                    Text(pokemon.name.capitalized.replacingOccurrences(of: "-", with: " "))
                     .font(.title)
                     Spacer()
                     if (pokemon.isFavourite ?? false) {
