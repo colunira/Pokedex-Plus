@@ -110,9 +110,6 @@ final class ViewModel: ObservableObject {
                 let db = try Connection(fileUrl.path)
                 let pokemons = Table("pokemons")
                 let id = Expression<Int>("id")
-//                try db.run(pokemons.create { t in
-//                    t.column(id, primaryKey: true)
-//                })
                 let dbaccess = DBAccess(db: db, table: pokemons, expression: id)
                 
                 let isFav = dbaccess.isPokemonFavourite(id: pokemon.id)

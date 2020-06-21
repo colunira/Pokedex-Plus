@@ -25,6 +25,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+            do {
+                let dir = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                let fileUrl = dir.appendingPathComponent("pokemons").appendingPathExtension("sqlite3")
+                let db = try Connection(fileUrl.path)
+                let pokemons = Table("pokemons")
+                let id = Expression<Int>("id")
+                try db.run(pokemons.create { t in
+                    t.column(id, primaryKey: true)
+                })
+            } catch {
+                print("Table already exists!")
+            }
             window.rootViewController = UIHostingController(rootView: CategoryHome()
                 .environmentObject(ViewModel()))
             self.window = window
