@@ -12,6 +12,7 @@ import SQLite
 
 final class ViewModel: ObservableObject {
     @Published var pokemons = [Pokemon]()
+    @Published var isLoading = true
     @Published var showFavouritesOnly = false
     private var internalPokemons = [Pokemon]()
     
@@ -37,10 +38,7 @@ final class ViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.allPokemonsGroup.notify(queue: .main) {
                     self.internalPokemons.sort(by: {$0.id < $1.id})
-                    self.internalPokemons.forEach{ poke in
-                        print(poke.name)
-                    }
-                    
+                    self.isLoading = false
                     self.pokemons = self.internalPokemons
                     self.internalPokemons = [Pokemon]()
                 }
@@ -78,6 +76,7 @@ final class ViewModel: ObservableObject {
                     self.allPokemonsGroup.notify(queue: .main) {
                         self.internalPokemons.sort(by: {$0.id < $1.id})
                         self.pokemons = self.internalPokemons
+                        self.isLoading = false
                         self.internalPokemons = [Pokemon]()
                     }
                 }
