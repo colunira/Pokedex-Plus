@@ -12,8 +12,11 @@ import SQLite
 
 final class ViewModel: ObservableObject {
     @Published var pokemons = [Pokemon]()
+    @Published var isLoading = true
     @Published var showFavouritesOnly = false
+    private var internalPokemons = [Pokemon]()
     
+    let allPokemonsGroup = DispatchGroup()
     
     private var baseURL = "https://pokeapi.co/api/v2/"
     private let session = URLSession.shared
@@ -28,7 +31,17 @@ final class ViewModel: ObservableObject {
             let dbaccess = DBAccess(db: db, table: poketable, expression: id_e)
             let favs = dbaccess.getAllPokemons()
             for id in favs {
+                print(id)
+                self.allPokemonsGroup.enter()
                 getPokemonByName(name: id.description)
+            }
+            DispatchQueue.main.async {
+                self.allPokemonsGroup.notify(queue: .main) {
+                    self.internalPokemons.sort(by: {$0.id < $1.id})
+                    self.isLoading = false
+                    self.pokemons = self.internalPokemons
+                    self.internalPokemons = [Pokemon]()
+                }
             }
         }
         catch {
@@ -51,12 +64,21 @@ final class ViewModel: ObservableObject {
             }
             
             do {
+
                 let generation = try JSONDecoder().decode(Generation.self, from: data!)
                 generation.pokemons.forEach{ poke in
+                    self.allPokemonsGroup.enter()
                     self.getPokemonByName(name: poke.description)
                 }
+                
+                
                 DispatchQueue.main.async {
-                    // update our UI
+                    self.allPokemonsGroup.notify(queue: .main) {
+                        self.internalPokemons.sort(by: {$0.id < $1.id})
+                        self.pokemons = self.internalPokemons
+                        self.isLoading = false
+                        self.internalPokemons = [Pokemon]()
+                    }
                 }
             }
             catch {
@@ -92,20 +114,20 @@ final class ViewModel: ObservableObject {
 //                    t.column(id, primaryKey: true)
 //                })
                 let dbaccess = DBAccess(db: db, table: pokemons, expression: id)
+                
                 let isFav = dbaccess.isPokemonFavourite(id: pokemon.id)
                     pokemon.isFavourite = isFav
-                DispatchQueue.main.async {
-                    // update our UI
-                    self.pokemons.append(pokemon)
-                    self.pokemons.sort(by: {$0.id < $1.id})
-                }
+                self.internalPokemons.append(pokemon)
+                self.allPokemonsGroup.leave()
             }
             catch {
                 print("Error decoing: \(error)")
             }
             
         }
+        
         task.resume()
+        
     }
     
     func doPokemonFavourite(id: Int) {

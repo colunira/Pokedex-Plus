@@ -14,25 +14,27 @@ struct PokemonRow: View {
     var body: some View {
         HStack {
             
-            URLImage(URL(string: pokemon.sprites.frontDefault)!, content: {
-                $0.image
+            URLImage(URL(string: pokemon.sprites.frontDefault)!,
+                     placeholder: Image("loading"),
+                     content: {
+                        $0.image
             })
             
             VStack(alignment: .leading) {
                 HStack {
                     Text(pokemon.name.capitalized.replacingOccurrences(of: "-", with: " "))
-                    .font(.title)
+                        .font(.title)
                     Spacer()
                     if (pokemon.isFavourite ?? false) {
                         Image("star").resizable()
                             .frame(width: 25, height: 25)
-                        .shadow(radius: 1)
+                            .shadow(radius: 1)
                     }
                 }
                 
                 HStack {
                     Text(pokemon.types[0].type.name.capitalized)
-                    .foregroundColor(Color(pokemon.types[0].type.name))
+                        .foregroundColor(Color(pokemon.types[0].type.name))
                     if (pokemon.types.capacity > 1){
                         Spacer()
                         Text(pokemon.types[1].type.name.capitalized)
@@ -51,12 +53,12 @@ struct PokemonRow: View {
 }
 
 struct PokemonRow_Previews: PreviewProvider {
- static var previews: some View {
- Group {
-    PokemonRow(pokemon: ViewModel.getStaticPokemon() )
-    PokemonRow(pokemon: ViewModel.getStaticPokemon() )
- }
- .previewLayout(.fixed(width: 300, height: 70))
- 
- }
- }
+    static var previews: some View {
+        Group {
+            PokemonRow(pokemon: ViewModel.getStaticPokemon() )
+            PokemonRow(pokemon: ViewModel.getStaticPokemon() )
+        }
+        .previewLayout(.fixed(width: 300, height: 70))
+        
+    }
+}

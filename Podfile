@@ -8,4 +8,5 @@ target 'Pokedex Plus' do
   # Pods for PokeAPI
 pod 'URLImage'
 pod 'SQLite.swift', '~> 0.12.0'
+
 end
