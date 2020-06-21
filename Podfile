@@ -6,7 +6,6 @@ target 'Pokedex Plus' do
   use_frameworks!
 
   # Pods for PokeAPI
-pod 'Alamofire', '~> 5.1'
 pod 'URLImage'
 pod 'SQLite.swift', '~> 0.12.0'
 end

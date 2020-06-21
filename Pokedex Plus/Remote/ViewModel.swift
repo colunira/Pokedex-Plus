@@ -78,9 +78,6 @@ final class ViewModel: ObservableObject {
             
             guard let response = res as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")
-                let aaa = res as? HTTPURLResponse
-                print(name)
-                print(aaa?.statusCode.description)
                 return
             }
             
@@ -91,6 +88,9 @@ final class ViewModel: ObservableObject {
                 let db = try Connection(fileUrl.path)
                 let pokemons = Table("pokemons")
                 let id = Expression<Int>("id")
+//                try db.run(pokemons.create { t in
+//                    t.column(id, primaryKey: true)
+//                })
                 let dbaccess = DBAccess(db: db, table: pokemons, expression: id)
                 let isFav = dbaccess.isPokemonFavourite(id: pokemon.id)
                     pokemon.isFavourite = isFav

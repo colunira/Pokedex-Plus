@@ -457,6 +457,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Pokedex Plus/Preview Content\"";
+				DEVELOPMENT_TEAM = QGA2P24AV3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Pokedex Plus/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -477,6 +478,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Pokedex Plus/Preview Content\"";
+				DEVELOPMENT_TEAM = QGA2P24AV3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Pokedex Plus/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
