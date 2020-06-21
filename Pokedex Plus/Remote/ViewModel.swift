@@ -91,7 +91,6 @@ final class ViewModel: ObservableObject {
     }
     
     func getPokemonByName(name: String) {
-        let pokemonGroup = DispatchGroup()
         let url = URL(string: baseURL + "pokemon/" + name)!
         let task = session.dataTask(with: url) { data, res, error in
             
@@ -119,17 +118,8 @@ final class ViewModel: ObservableObject {
                 
                 let isFav = dbaccess.isPokemonFavourite(id: pokemon.id)
                     pokemon.isFavourite = isFav
-//                DispatchQueue.main.async {
-//                    // update our UI
-//                    self.internalPokemons.append(pokemon)
-//                    self.internalPokemons.sort(by: {$0.id < $1.id})
-//                }
-                pokemonGroup.leave()
+                self.internalPokemons.append(pokemon)
                 self.allPokemonsGroup.leave()
-                pokemonGroup.notify(queue: DispatchQueue.main, execute: {
-                    self.internalPokemons.append(pokemon)
-                })
-                
             }
             catch {
                 print("Error decoing: \(error)")
@@ -137,8 +127,6 @@ final class ViewModel: ObservableObject {
             
         }
         
-        
-        pokemonGroup.enter()
         task.resume()
         
     }
